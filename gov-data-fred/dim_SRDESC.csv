@@ -1,0 +1,9 @@
+series_id,name,unit,frequency,url
+CPIAUCSL,Consumer Price Index for All Urban Consumers: All Items in U.S. City Average,"Index 1982-1984=100, Seasonally Adjusted",Monthly,https://fred.stlouisfed.org/series/CPIAUCSL
+FPCPITOTLZGUSA,"Inflation, consumer prices for the United States","Percent, Not Seasonally Adjusted",Annual,https://fred.stlouisfed.org/series/FPCPITOTLZGUSA
+UNRATE,Unemployment Rate,"Percent, Seasonally Adjusted",Monthly,https://fred.stlouisfed.org/series/UNRATE
+GDP,Gross Domestic Product,"Billions of Dollars, Seasonally Adjusted Annual Rate",Quarterly,https://fred.stlouisfed.org/series/GDP
+GDPC1,Real Gross Domestic Product,"Billions of Chained 2017 Dollars, Seasonally Adjusted Annual",Quarterly,https://fred.stlouisfed.org/series/GDPC1
+FEDFUNDS,Federal Funds Effective Rate,"Percent, Not Seasonally Adjusted",Monthly,https://fred.stlouisfed.org/series/FEDFUNDS
+WM2NS,M2,"Billions of Dollars, Not Seasonally Adjusted","Weekly, Ending Monday",https://fred.stlouisfed.org/series/WM2NS
+DEXUSEU,U.S. Dollars to Euro Spot Exchange Rate,"U.S. Dollars to One Euro, Not Seasonally Adjusted",Daily,https://fred.stlouisfed.org/series/DEXUSEU
