@@ -2,7 +2,7 @@ on:
   push:
     branches: main
   schedule:
-     - cron: "0 */12 * * *"
+    - cron: "0 */12 * * *"
 
 name: Run FRED Econ Data
 
@@ -14,9 +14,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: "main"
-      - name: Data Refresh
-        run: ./FRED-gov-data/gov-data-FRED-API.ipynb
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter
+      - name: Run Jupyter Notebook
+        run: |
+          jupyter nbconvert --execute --to notebook --output FRED-gov-data/output.csv FRED-gov-data/gov-data-FRED-API.ipynb
         env:
           EIA_API_KEY: ${{ secrets.FRED_API_KEY }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_NAME: ${{ secrets.USER_NAME }}
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "${USER_EMAIL}"
+          git config --global user.name "${USER_NAME}"
+          git add FRED-gov-data/output.csv
+          git commit -m "Automated update of FRED econ data"
+          git push origin main
