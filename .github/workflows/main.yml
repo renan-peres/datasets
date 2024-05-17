@@ -1,10 +1,11 @@
-name: Data Refresh - Python
-
 on:
   push:
     branches: main
   schedule:
-    - cron: "0 */12 * * *"
+     - cron: "0 */12 * * *"
+
+name: Quarto Publish
+
 jobs:
   refresh-the-dashboard:
     runs-on: ubuntu-22.04
