@@ -17,13 +17,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Set environment variables
         env:
           EIA_API_KEY: ${{ secrets.FRED_API_KEY }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_NAME: ${{ secrets.USER_NAME }}
       - name: Run Notebook
-          run: python FRED-gov-data/gov-data-FRED-API.ipynb
+        uses: papermill/execute-notebook@v2
+        with:
+          input_path: FRED-gov-data/gov-data-FRED-API.ipynb
+          output_path: FRED-gov-data/output.csv
       - name: Commit and push changes
+        uses: actions/checkout@v4
         run: |
           git config --global user.email "${USER_EMAIL}"
           git config --global user.name "${USER_NAME}"
