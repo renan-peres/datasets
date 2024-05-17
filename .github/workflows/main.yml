@@ -12,8 +12,8 @@ jobs:
         with:
           ref: "main"
       - name: Data Refresh
-        run: bash ./python/data_refresh_py.sh
+        run: ./FRED-gov-data/gov-data-FRED-API.ipynb
         env:
-          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          EIA_API_KEY: ${{ secrets.FRED_API_KEY }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_NAME: ${{ secrets.USER_NAME }}
