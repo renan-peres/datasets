@@ -133,7 +133,7 @@ def create_output_directory(directory: str):
         logger.info(f"Created directory: {directory}")
 
 async def main():
-    output_dir = "../../data/finance/stock_data"
+    output_dir = "../../data/finance"
     create_output_directory(output_dir)
     
     symbols_file = 'tickers.txt'
@@ -145,7 +145,7 @@ async def main():
         return
     
     current_date = datetime.today().strftime('%Y-%m-%d')
-    output_file = os.path.join(output_dir, f'company_profiles.parquet')
+    output_file = os.path.join(output_dir, f'company_profile.parquet')
     
     profiles = await fetch_all_profiles(symbols, FINNHUB_API_KEY)
     

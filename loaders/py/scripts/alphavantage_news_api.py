@@ -60,7 +60,7 @@ def main():
     df = pl.DataFrame(articles)
     
     date = datetime.today().strftime('%Y-%m-%d')
-    df.write_parquet(f"../../data/finance/market_news_{date}.parquet")
+    df.write_parquet(f"../../data/finance/market_news.parquet")
 
     print("\nFinal Summary:")
     print(f"Total articles processed: {len(articles)}")
