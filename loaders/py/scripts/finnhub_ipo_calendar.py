@@ -10,6 +10,11 @@ from make_clean_names import make_clean_names
 # Load environment variables
 load_dotenv()
 
+# Get API key from environment variables
+FINNHUB_API_KEY = os.getenv('FINNHUB_API_KEY')
+if not FINNHUB_API_KEY:
+    raise ValueError("FINNHUB_API_KEY not found in environment variables")
+
 def fetch_ipo_data(api_key, from_date, to_date):
     url = "https://finnhub.io/api/v1/calendar/ipo"
     params = {
