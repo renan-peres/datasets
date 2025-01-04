@@ -5,11 +5,6 @@ import re
 from dotenv import load_dotenv
 import os
 import sys
-
-# Add the directory containing make_clean_names.py to the Python path
-sys.path.append(os.path.abspath('../'))
-
-# Import the make_clean_names function
 from make_clean_names import make_clean_names
 
 # Load environment variables
@@ -49,9 +44,9 @@ def main():
         
         # Write to Parquet        
         date = datetime.today().strftime('%Y-%m-%d')
-        df.write_parquet(f"{output_dir}/ipo_calendar_{date}.parquet")
+        df.write_parquet(f"{output_dir}/ipo_calendar.parquet")
 
-        print(f"Data written to {output_dir}/ipo_calendar_{date}.parquet")
+        print(f"Data written to {output_dir}/ipo_calendar.parquet")
         print(f"Date range: {from_date} to {to_date}")
         print(f"Total IPOs found: {len(ipo_calendar)}")
     else:

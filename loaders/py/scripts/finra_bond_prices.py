@@ -6,15 +6,10 @@ import sys
 from datetime import datetime
 from dotenv import load_dotenv
 import re
+from make_clean_names import make_clean_names
 
 # Load environment variables
 load_dotenv()
-
-# Add the directory containing make_clean_names.py to the Python path
-sys.path.append(os.path.abspath('../'))
-
-# Import the make_clean_names function
-from make_clean_names import make_clean_names
 
 def fetch_access_token(client_id, client_secret):
     auth_string = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
@@ -65,9 +60,9 @@ def main():
         
         # Write to CSV
         date = datetime.today().strftime('%Y-%m-%d')
-        df.write_parquet(f"{output_dir}/treasury_monthly_aggregates_{date}.parquet")
+        df.write_parquet(f"{output_dir}/treasury_monthly_aggregates.parquet")
         
-        print(f"Data written to {output_dir}/treasury_monthly_aggregates_{date}.parquet")
+        print(f"Data written to {output_dir}/treasury_monthly_aggregates.parquet")
         print(f"Total rows processed: {len(market_data)}")
     else:
         print("No market data found.")
