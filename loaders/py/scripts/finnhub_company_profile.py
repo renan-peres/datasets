@@ -6,7 +6,6 @@ from typing import List, Dict, Any
 import os
 from datetime import datetime
 import logging
-from make_clean_names import make_clean_names
 from dotenv import load_dotenv
 
 # Load environment variables
