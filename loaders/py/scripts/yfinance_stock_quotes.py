@@ -72,7 +72,7 @@ def main():
     
     start_date = '2020-01-01'
     end_date = datetime.today().strftime('%Y-%m-%d')
-    output_file = os.path.join(output_dir, f'historical_quotes_{start_date}_to_{end_date}.parquet')
+    output_file = os.path.join(output_dir, f'historical_stock_quotes_{start_date}_to_{end_date}.parquet')
     
     data_dict = download_stock_data(symbols, start_date, end_date)
     

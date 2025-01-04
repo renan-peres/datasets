@@ -11,6 +11,15 @@ from make_clean_names import make_clean_names
 # Load environment variables
 load_dotenv()
 
+# Get API key from environment variables
+FINRA_CLIENT_ID = os.getenv('FINRA_CLIENT_ID')
+if not FINRA_CLIENT_ID:
+    raise ValueError("FINRA_CLIENT_ID not found in environment variables")
+
+FINRA_CLIENT_SECRET = os.getenv('FINRA_CLIENT_SECRET')
+if not FINRA_CLIENT_SECRET:
+    raise ValueError("FINRA_CLIENT_SECRET not found in environment variables")
+
 def fetch_access_token(client_id, client_secret):
     auth_string = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
     url = "https://ews.fip.finra.org/fip/rest/ews/oauth2/access_token?grant_type=client_credentials"
