@@ -10,8 +10,8 @@ import re
 # Load environment variables
 load_dotenv()
 
-# Add the parent directory to the Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add the directory containing make_clean_names.py to the Python path
+sys.path.append(os.path.abspath('../'))
 
 # Import the make_clean_names function
 from make_clean_names import make_clean_names
