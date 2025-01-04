@@ -17,7 +17,7 @@
 //! [package]
 //! edition = "2021"
 //! 
-//! [dependencies]
+//! [dependencies]S
 //! reqwest = { version = "0.11", features = ["json"] }
 //! serde = { version = "1.0", features = ["derive"] }
 //! serde_json = "1.0"
