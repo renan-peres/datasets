@@ -59,7 +59,7 @@ def create_output_directory(directory: str):
         print(f"Created directory: {directory}")
 
 def main():
-    output_dir = "../../finance/stock_data"
+    output_dir = "../../data/finance/stock_data"
     create_output_directory(output_dir)
     
     symbols_file = 'tickers.txt'

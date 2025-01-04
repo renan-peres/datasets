@@ -49,8 +49,8 @@ done < tables_with_numbers.txt
 echo "Export complete. Files saved in parquet_exports/"
 
 # Move to duckdb_parquet_exports in root directory
-mkdir -p ../../duckdb_parquet_exports
-mv parquet_exports/* ../../duckdb_parquet_exports/
+mkdir -p ../../data/duckdb_parquet_exports
+mv parquet_exports/* ../../data/duckdb_parquet_exports/
 rmdir parquet_exports
 
 echo "Files moved to duckdb_parquet_exports in root directory"
