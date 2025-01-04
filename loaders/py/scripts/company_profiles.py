@@ -146,7 +146,7 @@ async def main():
         return
     
     current_date = datetime.today().strftime('%Y-%m-%d')
-    output_file = os.path.join(output_dir, f'company_profiles_{current_date}.parquet')
+    output_file = os.path.join(output_dir, f'company_profiles.parquet')
     
     profiles = await fetch_all_profiles(symbols, FINNHUB_API_KEY)
     
