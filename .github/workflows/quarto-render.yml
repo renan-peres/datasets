@@ -1,0 +1,49 @@
+name: Quarto Render
+
+on:
+  schedule:
+    - cron: '0 10 * * 1-5'  # Every weekday (Mon-Fri) at 10 AM
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  render-quarto:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      RENV_PATHS_ROOT: ~/.local/share/renv
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        cache: 'pip'
+        cache-dependency-path: 'loaders/py/requirements.txt'
+
+    - name: Install Python dependencies
+      run: |
+        cd loaders/py
+        chmod +x 01_install_dependencies.sh
+        ./01_install_dependencies.sh
+
+    - name: Run Python Scripts
+      run: |
+        cd loaders/py
+        chmod +x 02_run_python.sh
+        ./02_run_python.sh
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "github@renanperes.com"
+        git config --local user.name "renan-peres"
+        git add .
+        git commit -m "Render Quarto documents" || exit 0
+        git push
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
