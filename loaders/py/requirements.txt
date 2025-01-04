@@ -1,0 +1,9 @@
+jupyter
+pandas
+numpy
+polars
+duckdb
+yfinance
+aiohttp
+unidecode
+python-dotenv
