@@ -115,7 +115,7 @@ def save_profiles(profiles: List[Dict[str, Any]], output_file: str):
     # Clean column names
     df = make_clean_names(
         df,
-        case_type="snake",
+        case_type="lower",
         strip_accents=True,
         strip_underscores="both",
         insert_underscores=True
