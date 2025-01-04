@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 import logging
 from dotenv import load_dotenv
+from make_clean_names import make_clean_names
 
 # Load environment variables
 load_dotenv()
