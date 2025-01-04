@@ -15,6 +15,9 @@ jobs:
       contents: write
     env:
       RENV_PATHS_ROOT: ~/.local/share/renv
+      FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+      USER_NAME: ${{ secrets.USER_NAME }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -40,8 +43,8 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
-        git config --local user.email "github@renanperes.com"
-        git config --local user.name "renan-peres"
+        git config --local user.email "${{ secrets.USER_EMAIL }}"
+        git config --local user.name "${{ secrets.USER_NAME }}"
         git add .
         git commit -m "Render Quarto documents" || exit 0
         git push
