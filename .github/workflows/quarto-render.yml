@@ -1,4 +1,4 @@
-name: Quarto Render
+name: Python Loader
 
 on:
   schedule:
