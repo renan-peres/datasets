@@ -9,3 +9,5 @@ aiohttp
 unidecode
 python-dotenv
 openbb
+asyncio
+tenacity

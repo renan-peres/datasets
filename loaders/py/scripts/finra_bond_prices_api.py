@@ -72,9 +72,9 @@ def main():
         
         # Write to CSV
         date = datetime.today().strftime('%Y-%m-%d')
-        df.write_parquet(f"{output_dir}/treasury_bond_prices_aggregates.parquet")
+        df.write_parquet(f"{output_dir}/treasury_bond_prices.parquet")
         
-        print(f"Data written to {output_dir}/treasury_bond_prices_aggregates.parquet")
+        print(f"Data written to {output_dir}/treasury_bond_prices.parquet")
         print(f"Total rows processed: {len(market_data)}")
     else:
         print("No market data found.")
