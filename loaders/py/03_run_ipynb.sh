@@ -32,7 +32,7 @@ echo "Running all Jupyter notebooks in the 'ipynb' directory..."
 for notebook in ipynb/*.ipynb; do
     if [ -f "$notebook" ]; then
         echo "Executing notebook: $notebook"
-        jupyter nbconvert --to notebook --execute "$notebook" --output-dir ./ipynb/output/
+        jupyter nbconvert --to notebook --execute --inplace "$notebook"
         if [ $? -ne 0 ]; then
             echo "Error occurred while executing notebook: $notebook"
             deactivate
