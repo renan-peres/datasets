@@ -5,6 +5,8 @@ import re
 from dotenv import load_dotenv
 import os
 import sys
+
+sys.path.append('..')
 from make_clean_names import make_clean_names
 
 # Load environment variables
@@ -44,7 +46,7 @@ def main():
         df = make_clean_names(df)
         
         # Ensure the directory exists
-        output_dir = "../../../data/finance"
+        output_dir = "../../data/finance"
         os.makedirs(output_dir, exist_ok=True)
         
         # Write to Parquet        

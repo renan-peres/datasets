@@ -3,7 +3,9 @@ pandas
 numpy
 polars
 duckdb
+pyarrow
 yfinance
 aiohttp
 unidecode
 python-dotenv
+openbb
