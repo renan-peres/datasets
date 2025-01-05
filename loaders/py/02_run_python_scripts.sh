@@ -19,6 +19,10 @@ fi
 echo "Running all Python scripts..."
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 for script in scripts/*.py; do
+    if [ "$(basename "$script")" = "make_clean_names.py" ]; then
+        echo "Skipping $script..."
+        continue
+    fi
     if [ -f "$script" ]; then
         echo "Executing $script..."
         python3 "$script"
