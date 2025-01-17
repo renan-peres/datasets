@@ -1,4 +1,4 @@
-name: Python Loader
+name: Ipynb Render
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  render-quarto:
+  render-notebooks:
     runs-on: ubuntu-latest
     permissions:
       contents: write
