@@ -27,16 +27,21 @@ mkdir -p ipynb/output
 # Set Python path
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
+# Initialize status tracking
+failed_notebooks=0
+total_notebooks=0
+
 # Run all Jupyter notebooks in the ipynb directory
 echo "Running all Jupyter notebooks in the 'ipynb' directory..."
 for notebook in ipynb/*.ipynb; do
     if [ -f "$notebook" ]; then
+        ((total_notebooks++))
         echo "Executing notebook: $notebook"
-        jupyter nbconvert --to notebook --execute --inplace "$notebook"
-        if [ $? -ne 0 ]; then
-            echo "Error occurred while executing notebook: $notebook"
-            deactivate
-            exit 1
+        if jupyter nbconvert --to notebook --execute --inplace "$notebook"; then
+            echo "Successfully executed: $notebook"
+        else
+            echo "Failed to execute: $notebook"
+            ((failed_notebooks++))
         fi
     else
         echo "No notebooks found in 'ipynb' directory."
@@ -44,6 +49,14 @@ for notebook in ipynb/*.ipynb; do
     fi
 done
 
+# Report final status
+echo "Execution complete."
+echo "Total notebooks processed: $total_notebooks"
+echo "Failed notebooks: $failed_notebooks"
+
 # Deactivate virtual environment
-echo "Execution complete. Deactivating virtual environment..."
+echo "Deactivating virtual environment..."
 deactivate
+
+# Exit with failure if any notebook failed
+[ $failed_notebooks -eq 0 ] || exit 1
