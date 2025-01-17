@@ -16,11 +16,11 @@ fi
 
 # Run Python scripts
 echo "Running Python scripts..."
-sh 02_run_python_scripts.sh
+bash 02_run_python_scripts.sh
 
 # Run Jupyter notebooks
 echo "Running Jupyter notebooks..."
-sh 03_run_ipynb.sh
+bash 03_run_ipynb.sh
 
 # Deactivate virtual environment
 deactivate
