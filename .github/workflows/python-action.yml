@@ -23,34 +23,34 @@ jobs:
       FINRA_CLIENT_ID: ${{ secrets.FINRA_CLIENT_ID }}
       FINRA_CLIENT_SECRET: ${{ secrets.FINRA_CLIENT_SECRET }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-          cache: 'pip'
-          cache-dependency-path: 'loaders/py/requirements.txt'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        cache: 'pip'
+        cache-dependency-path: 'loaders/py/requirements.txt'
 
-      - name: Install Python dependencies
-        run: |
-          cd loaders/py
-          chmod +x 01_install_dependencies.sh
-          ./01_install_dependencies.sh
+    - name: Install Python dependencies
+      run: |
+        cd loaders/py
+        chmod +x 01_install_dependencies.sh
+        ./01_install_dependencies.sh
 
-      - name: Run Python Scripts
-        run: |
-          cd loaders/py
-          chmod +x 04_run_all.sh
-          ./04_run_all.sh
+    - name: Run Python Scripts
+      run: |
+        cd loaders/py
+        chmod +x 04_run_all.sh
+        ./04_run_all.sh
 
-      - name: Commit and Push Changes
-        run: |
-          git config --local user.email "${{ secrets.USER_EMAIL }}"
-          git config --local user.name "${{ secrets.USER_NAME }}"
-          git add .
-          git commit -m "Render Quarto documents" || exit 0
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "${{ secrets.USER_EMAIL }}"
+        git config --local user.name "${{ secrets.USER_NAME }}"
+        git add .
+        git commit -m "Render Quarto documents" || exit 0
+        git push
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
