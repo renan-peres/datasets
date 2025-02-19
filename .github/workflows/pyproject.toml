@@ -1,6 +1,0 @@
-[build-system]
-requires = ["meson", "ninja"]
-build-backend = "mesonpy"
-
-[tool.mesonpy]
-# Specific configurations for mesonpy
