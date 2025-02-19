@@ -37,8 +37,8 @@ jobs:
       run: |
         cd loaders/py
         python -m pip install --upgrade pip==23.3.1
-        python -m pip install --upgrade setuptools wheel
-        python -m pip install -r requirements.txt --no-cache-dir
+        chmod +x 01_install_dependencies.sh
+        ./01_install_dependencies.sh
       env:
         PIP_NO_CACHE_DIR: 1
 
