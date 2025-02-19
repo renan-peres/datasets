@@ -1,10 +1,10 @@
 jupyter
-pandas
+pandas>=2.2.0
 numpy
 polars
 duckdb
 pyarrow
-yfinance
+yfinance>=0.2.35
 aiohttp
 unidecode
 python-dotenv
