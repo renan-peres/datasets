@@ -36,6 +36,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         cd loaders/py
+        python -m pip install --upgrade "pip<24.1"
         chmod +x 01_install_dependencies.sh
         ./01_install_dependencies.sh
 
