@@ -1,3 +1,9 @@
+pandas==2.2.3
+pandas-datareader==0.10.0
+duckdb
+polars
+numpy
+numba
 python-dotenv>=1.0.0
 ipykernel
 pipreqs==0.4.11
@@ -9,11 +15,6 @@ nbconvert==7.2.10
 matplotlib==3.8.0
 yfinance
 openbb[all]>=4.1.0,<4.5.0
-numpy
-pandas==2.2.3
-pandas-datareader==0.10.0
-polars==1.27.1
-duckdb==1.2.2
 pyarrow==19.0.1
 openpyxl==3.1.5
 fastexcel==0.14.0
@@ -36,5 +37,4 @@ bt
 ta-lib
 textblob==0.19.0
 pytest==8.4.0
-numba
 boto3
