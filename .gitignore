@@ -1,6 +1,7 @@
-data.db
+**.db
+.env
+.venv/
+venv/
 tables_with_numbers.txt
 venv/
 __pycache__
-.env
-.venv/

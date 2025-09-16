@@ -1,0 +1,77 @@
+name: Data Loader and Notebook Renderer
+
+on:
+  schedule:
+    - cron: '0 10 * * 1-5'  # Every weekday (Mon-Fri) at 10 AM
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  render-notebooks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      RENV_PATHS_ROOT: ~/.local/share/renv
+      USER_NAME: ${{ secrets.USER_NAME }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+      ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+      FINRA_CLIENT_ID: ${{ secrets.FINRA_CLIENT_ID }}
+      FINRA_CLIENT_SECRET: ${{ secrets.FINRA_CLIENT_SECRET }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        # We let uv manage dependency caching; pip cache not needed
+
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_PATH=1 sh
+        echo "${HOME}/.local/bin" >> $GITHUB_PATH
+        uv --version
+
+    - name: Create virtual environment & install dependencies
+      run: |
+        ls -al
+        echo "[INFO] Creating / reusing .venv with uv"
+        uv venv --seed
+        source .venv/bin/activate
+        python -V
+        echo "[INFO] Installing dependencies via uv pip"
+        if [ -f requirements.txt ]; then
+          uv pip install --upgrade -r requirements.txt --prerelease=allow
+        else
+          echo "[WARN] requirements.txt not found, skipping"
+        fi
+        echo "[INFO] Freeze after install:" 
+        pip freeze | head -n 40
+
+    - name: Run Orchestration Scripts
+      env:
+        FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      run: |
+        set -euo pipefail
+        source .venv/bin/activate
+        chmod +x orchestrate/01_install_dependencies.sh orchestrate/run_all.sh orchestrate/02_run_ipynb.sh
+        echo "[INFO] (Re)installing with script to ensure parity"
+        (cd orchestrate && ./01_install_dependencies.sh)
+        echo "[INFO] Running run_all.sh"
+        (cd orchestrate && ./run_all.sh)
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "${{ secrets.USER_EMAIL }}"
+        git config --local user.name "${{ secrets.USER_NAME }}"
+        git add .
+        git commit -m "Render Quarto documents" || exit 0
+        git push
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
