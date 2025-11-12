@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Create directory for CSV exports
-mkdir -p csv_exports
+mkdir -p duckdb_csv_exports
 
 # Export to CSV format
-duckdb data.db -c "EXPORT DATABASE 'csv_exports' (FORMAT CSV, DELIMITER ',');"
+duckdb data.db -c "EXPORT DATABASE 'duckdb_csv_exports' (FORMAT CSV, DELIMITER ',');"
 
 # Export table names containing numbers to a text file, without formatting
 duckdb data.db -c "
@@ -16,7 +16,7 @@ COPY (
 "
 
 # First clean up double underscores and trailing underscores
-for f in csv_exports/*.csv; do
+for f in duckdb_csv_exports/*.csv; do
     new_name=$(echo "$f" | sed -e 's/_\+/_/g' -e 's/_\.csv/.csv/g')
     [ "$f" != "$new_name" ] && mv "$f" "$new_name"
 done
@@ -35,18 +35,25 @@ while IFS= read -r table_name; do
     base_name3=$(echo "$table_name" | sed 's/[0-9].*$//')
     
     # Check all possible original files
-    if [ -f "csv_exports/${base_name1}.csv" ]; then
-        mv "csv_exports/${base_name1}.csv" "csv_exports/${table_name}.csv"
-        echo "Renamed csv_exports/${base_name1}.csv to csv_exports/${table_name}.csv"
-    elif [ -f "csv_exports/${base_name2}.csv" ]; then
-        mv "csv_exports/${base_name2}.csv" "csv_exports/${table_name}.csv"
-        echo "Renamed csv_exports/${base_name2}.csv to csv_exports/${table_name}.csv"
-    elif [ -f "csv_exports/${base_name3}.csv" ]; then
-        mv "csv_exports/${base_name3}.csv" "csv_exports/${table_name}.csv"
-        echo "Renamed csv_exports/${base_name3}.csv to csv_exports/${table_name}.csv"
+    if [ -f "duckdb_csv_exports/${base_name1}.csv" ]; then
+        mv "duckdb_csv_exports/${base_name1}.csv" "duckdb_csv_exports/${table_name}.csv"
+        echo "Renamed duckdb_csv_exports/${base_name1}.csv to duckdb_csv_exports/${table_name}.csv"
+    elif [ -f "duckdb_csv_exports/${base_name2}.csv" ]; then
+        mv "duckdb_csv_exports/${base_name2}.csv" "duckdb_csv_exports/${table_name}.csv"
+        echo "Renamed duckdb_csv_exports/${base_name2}.csv to duckdb_csv_exports/${table_name}.csv"
+    elif [ -f "duckdb_csv_exports/${base_name3}.csv" ]; then
+        mv "duckdb_csv_exports/${base_name3}.csv" "duckdb_csv_exports/${table_name}.csv"
+        echo "Renamed duckdb_csv_exports/${base_name3}.csv to duckdb_csv_exports/${table_name}.csv"
     else
         echo "Could not find matching file for ${table_name}"
     fi
 done < tables_with_numbers.txt
 
-echo "Export complete. Files saved in csv_exports/"
+echo "Export complete. Files saved in duckdb_csv_exports/"
+
+# Move to duckdb_csv_exports in root directory
+mkdir -p ../../data/duckdb_csv_exports
+mv duckdb_csv_exports/* ../../data/duckdb_csv_exports/
+rmdir duckdb_csv_exports
+
+echo "Files moved to duckdb_csv_exports in root directory"
