@@ -5,4 +5,4 @@ venv/
 tables_with_numbers.txt
 venv/
 __pycache__
-*.parquet
+*.parquet*.parquet
