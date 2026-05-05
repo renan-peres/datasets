@@ -7,3 +7,5 @@ venv/
 __pycache__
 *.parquet
 *.parquet
+*.parquet
+*.parquet
