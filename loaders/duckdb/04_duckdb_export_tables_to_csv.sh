@@ -51,9 +51,11 @@ done < tables_with_numbers.txt
 
 echo "Export complete. Files saved in duckdb_csv_exports/"
 
-# Move to duckdb_csv_exports in root directory
-mkdir -p ../../data/duckdb_csv_exports
-mv duckdb_csv_exports/* ../../data/duckdb_csv_exports/
+# Move to duckdb_csv_exports in the repository data directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DATA_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)/data"
+mkdir -p "$DATA_DIR/duckdb_csv_exports"
+mv duckdb_csv_exports/* "$DATA_DIR/duckdb_csv_exports/"
 rmdir duckdb_csv_exports
 
-echo "Files moved to duckdb_csv_exports in root directory"
+echo "Files moved to duckdb_csv_exports in repository data directory"

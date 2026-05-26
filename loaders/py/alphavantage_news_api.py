@@ -2,6 +2,7 @@ import requests
 import polars as pl
 from typing import List, Dict, Any
 import os
+from pathlib import Path
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
@@ -59,8 +60,9 @@ def main():
 
     df = pl.DataFrame(articles)
     
-    date = datetime.today().strftime('%Y-%m-%d')
-    df.write_parquet(f"../../data/finance/market_news.parquet")
+    output_dir = Path(__file__).resolve().parents[2] / "data" / "finance"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    df.write_parquet(output_dir / "market_news.parquet")
 
     print("\nFinal Summary:")
     print(f"Total articles processed: {len(articles)}")

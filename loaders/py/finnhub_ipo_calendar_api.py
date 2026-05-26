@@ -5,9 +5,10 @@ import re
 from dotenv import load_dotenv
 import os
 import sys
+from pathlib import Path
 
 sys.path.append('..')
-from make_clean_names import make_clean_names
+from loaders.py.make_clean_names import make_clean_names
 
 # Load environment variables
 load_dotenv()
@@ -46,12 +47,12 @@ def main():
         df = make_clean_names(df)
         
         # Ensure the directory exists
-        output_dir = "../../data/finance"
-        os.makedirs(output_dir, exist_ok=True)
+        output_dir = Path(__file__).resolve().parents[2] / "data" / "finance"
+        output_dir.mkdir(parents=True, exist_ok=True)
         
         # Write to Parquet        
         date = datetime.today().strftime('%Y-%m-%d')
-        df.write_parquet(f"{output_dir}/ipo_calendar.parquet")
+        df.write_parquet(output_dir / "ipo_calendar.parquet")
 
         print(f"Data written to {output_dir}/ipo_calendar.parquet")
         print(f"Date range: {from_date} to {to_date}")

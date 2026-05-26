@@ -3,12 +3,13 @@ import polars as pl
 import base64
 import os
 import sys
+from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 import re
 
 sys.path.append('..')
-from make_clean_names import make_clean_names
+from loaders.py.make_clean_names import make_clean_names
 
 
 # Load environment variables
@@ -67,12 +68,12 @@ def main():
         df = make_clean_names(df)
         
         # Ensure the directory exists
-        output_dir = "../../data/finance"
-        os.makedirs(output_dir, exist_ok=True)
+        output_dir = Path(__file__).resolve().parents[2] / "data" / "finance"
+        output_dir.mkdir(parents=True, exist_ok=True)
         
         # Write to CSV
         date = datetime.today().strftime('%Y-%m-%d')
-        df.write_parquet(f"{output_dir}/treasury_bond_prices.parquet")
+        df.write_parquet(output_dir / "treasury_bond_prices.parquet")
         
         print(f"Data written to {output_dir}/treasury_bond_prices.parquet")
         print(f"Total rows processed: {len(market_data)}")
